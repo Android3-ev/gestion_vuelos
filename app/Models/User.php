@@ -27,6 +27,7 @@ class User extends Authenticatable
         'genero',
         'tipo_id',
         'documento',
+        'edad',
         'celular',
         'email',
         'password',
@@ -40,7 +41,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'created_at',
+        'updated_at',
     ];
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class);
+    }
+
+    public function reservas()
+    {
+        return $this->belongsTo(Reserva::class);
+    }
 
     /**
      * Get the attributes that should be cast.

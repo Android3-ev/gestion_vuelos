@@ -21,7 +21,10 @@ class DatabaseSeeder extends Seeder
         $this->call(
             [
                 RolSeeder::class,
-                TiposDocumentoSeeder::class
+                TiposDocumentoSeeder::class,
+                MetodosPagoSeeder::class,
+                AvionSeeder::class,
+                VueloSeeder::class
             ]
         );
 

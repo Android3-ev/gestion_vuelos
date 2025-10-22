@@ -17,4 +17,14 @@ class Avion extends Model
         'aerolina',
         'capacidad',
     ];
+
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+    ];
+
+    public function vuelos()
+    {
+        return $this->hasMany(Vuelos::class, "avion_id");
+    }
 }

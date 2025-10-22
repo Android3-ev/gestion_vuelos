@@ -24,8 +24,11 @@ CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`asientos` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `asiento` VARCHAR(255) NOT NULL,
   `estado` TINYINT(1) NOT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -39,8 +42,11 @@ CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`avions` (
   `modelo` VARCHAR(255) NOT NULL,
   `aerolinea` VARCHAR(255) NOT NULL,
   `capacidad` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -67,133 +73,14 @@ COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `desarrollo_libre`.`cache`
+-- Table `desarrollo_libre`.`metodos_pagos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`cache` (
-  `key` VARCHAR(255) NOT NULL,
-  `value` MEDIUMTEXT NOT NULL,
-  `expiration` INT NOT NULL,
-  PRIMARY KEY (`key`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `desarrollo_libre`.`cache_locks`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`cache_locks` (
-  `key` VARCHAR(255) NOT NULL,
-  `owner` VARCHAR(255) NOT NULL,
-  `expiration` INT NOT NULL,
-  PRIMARY KEY (`key`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `desarrollo_libre`.`failed_jobs`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`failed_jobs` (
+CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`metodos_pagos` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `uuid` VARCHAR(255) NOT NULL,
-  `connection` TEXT NOT NULL,
-  `queue` TEXT NOT NULL,
-  `payload` LONGTEXT NOT NULL,
-  `exception` LONGTEXT NOT NULL,
-  `failed_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `failed_jobs_uuid_unique` (`uuid` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `desarrollo_libre`.`job_batches`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`job_batches` (
-  `id` VARCHAR(255) NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  `total_jobs` INT NOT NULL,
-  `pending_jobs` INT NOT NULL,
-  `failed_jobs` INT NOT NULL,
-  `failed_job_ids` LONGTEXT NOT NULL,
-  `options` MEDIUMTEXT NULL DEFAULT NULL,
-  `cancelled_at` INT NULL DEFAULT NULL,
-  `created_at` INT NOT NULL,
-  `finished_at` INT NULL DEFAULT NULL,
+  `metodo_pago` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `desarrollo_libre`.`jobs`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`jobs` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `queue` VARCHAR(255) NOT NULL,
-  `payload` LONGTEXT NOT NULL,
-  `attempts` TINYINT UNSIGNED NOT NULL,
-  `reserved_at` INT UNSIGNED NULL DEFAULT NULL,
-  `available_at` INT UNSIGNED NOT NULL,
-  `created_at` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `jobs_queue_index` (`queue` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `desarrollo_libre`.`migrations`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`migrations` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `migration` VARCHAR(255) NOT NULL,
-  `batch` INT NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 12
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `desarrollo_libre`.`password_reset_tokens`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`password_reset_tokens` (
-  `email` VARCHAR(255) NOT NULL,
-  `token` VARCHAR(255) NOT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT NULL,
-  PRIMARY KEY (`email`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `desarrollo_libre`.`personal_access_tokens`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`personal_access_tokens` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tokenable_type` VARCHAR(255) NOT NULL,
-  `tokenable_id` BIGINT UNSIGNED NOT NULL,
-  `name` TEXT NOT NULL,
-  `token` VARCHAR(64) NOT NULL,
-  `abilities` TEXT NULL DEFAULT NULL,
-  `last_used_at` TIMESTAMP NULL DEFAULT NULL,
-  `expires_at` TIMESTAMP NULL DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT NULL,
-  `updated_at` TIMESTAMP NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `personal_access_tokens_token_unique` (`token` ASC) VISIBLE,
-  INDEX `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type` ASC, `tokenable_id` ASC) VISIBLE,
-  INDEX `personal_access_tokens_expires_at_index` (`expires_at` ASC) VISIBLE)
-ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -206,6 +93,7 @@ CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`rols` (
   `rol_name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -220,6 +108,7 @@ CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`tipos_documentos` (
   `updated_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -258,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`users` (
     REFERENCES `desarrollo_libre`.`tipos_documentos` (`id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -267,20 +157,18 @@ COLLATE = utf8mb4_unicode_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`vuelos` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `avion_id` BIGINT UNSIGNED NOT NULL,
-  `image` VARCHAR(255) NOT NULL,
+  `image` VARCHAR(255) NULL DEFAULT NULL,
   `origen` VARCHAR(255) NOT NULL,
   `destino` VARCHAR(255) NOT NULL,
-  `fecha` DATE NOT NULL,
-  `hora` VARCHAR(255) NOT NULL,
+  `fecha_salida` DATETIME NOT NULL,
+  `fecha_llegada` DATETIME NOT NULL,
+  `tipo_vuelo` ENUM('solo ida', 'ida y vuelta') NOT NULL,
   `precio` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `vuelos_avion_id_foreign` (`avion_id` ASC) VISIBLE,
-  CONSTRAINT `vuelos_avion_id_foreign`
-    FOREIGN KEY (`avion_id`)
-    REFERENCES `desarrollo_libre`.`avions` (`id`)
-    ON DELETE CASCADE)
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -296,17 +184,27 @@ CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`reservas` (
   `nombre_completo` VARCHAR(255) NOT NULL,
   `tipo_documento` VARCHAR(255) NOT NULL,
   `documento` VARCHAR(255) NOT NULL,
-  `correo` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
   `celular` VARCHAR(255) NOT NULL,
+  `metodo_id` BIGINT UNSIGNED NOT NULL,
+  `monto` DOUBLE NOT NULL,
+  `estado` VARCHAR(255) NOT NULL,
+  `codigo` VARCHAR(255) NOT NULL,
+  `cantidad_reserva` VARCHAR(255) NOT NULL,
   `created_at` TIMESTAMP NULL DEFAULT NULL,
   `updated_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `reservas_user_id_foreign` (`user_id` ASC) VISIBLE,
   INDEX `reservas_vuelo_id_foreign` (`vuelo_id` ASC) VISIBLE,
   INDEX `reservas_asiento_id_foreign` (`asiento_id` ASC) VISIBLE,
+  INDEX `reservas_metodo_id_foreign` (`metodo_id` ASC) VISIBLE,
   CONSTRAINT `reservas_asiento_id_foreign`
     FOREIGN KEY (`asiento_id`)
     REFERENCES `desarrollo_libre`.`asientos` (`id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `reservas_metodo_id_foreign`
+    FOREIGN KEY (`metodo_id`)
+    REFERENCES `desarrollo_libre`.`metodos_pagos` (`id`)
     ON DELETE CASCADE,
   CONSTRAINT `reservas_user_id_foreign`
     FOREIGN KEY (`user_id`)
@@ -317,24 +215,7 @@ CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`reservas` (
     REFERENCES `desarrollo_libre`.`vuelos` (`id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `desarrollo_libre`.`sessions`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `desarrollo_libre`.`sessions` (
-  `id` VARCHAR(255) NOT NULL,
-  `user_id` BIGINT UNSIGNED NULL DEFAULT NULL,
-  `ip_address` VARCHAR(45) NULL DEFAULT NULL,
-  `user_agent` TEXT NULL DEFAULT NULL,
-  `payload` LONGTEXT NOT NULL,
-  `last_activity` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `sessions_user_id_index` (`user_id` ASC) VISIBLE,
-  INDEX `sessions_last_activity_index` (`last_activity` ASC) VISIBLE)
-ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 

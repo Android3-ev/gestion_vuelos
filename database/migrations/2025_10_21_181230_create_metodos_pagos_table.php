@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asientos', function (Blueprint $table) {
+        Schema::create('metodos_pagos', function (Blueprint $table) {
             $table->id();
-            $table->string("asiento");
-            $table->boolean("estado");
-            $table->timestamps();
+            $table->string("metodo_pago");
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asientos');
+        Schema::dropIfExists('metodos_pagos');
     }
 };

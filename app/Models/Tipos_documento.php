@@ -15,4 +15,9 @@ class Tipos_documento extends Model
     protected $fillable = [
         "tipo"
     ];
+
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+    ];
 }

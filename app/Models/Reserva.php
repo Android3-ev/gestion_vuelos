@@ -18,7 +18,17 @@ class Reserva extends Model
         'nombre_completo',
         'tipo_documento',
         'documento',
-        'correo',
+        'email',
         'celular',
+        'metodo_id',
+        'monto',
+        'estado',
+        'codigo',
+        'cantidad_reserva'
     ];
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }

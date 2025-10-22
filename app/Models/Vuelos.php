@@ -16,8 +16,15 @@ class Vuelos extends Model
         'image',
         'origen',
         'destino',
-        'fecha',
-        'hora',
+        'fecha_salida',
+        'fecha_llegada',
+        'tipo_vuelo',
         'precio'
     ];
+
+    public function avions()
+    {
+        return $this->belongsTo(Avion::class);
+    }
+
 }

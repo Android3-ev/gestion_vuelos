@@ -2,22 +2,18 @@
 
 namespace Database\Seeders;
 
+use App\Models\Avion;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class RolSeeder extends Seeder
+class AvionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('rols')->insert([
-            ["rol_name" => "Administrador"],
-            ["rol_name" => "Usuario"]
-        ]);
+        Avion::factory()->count(10)->create();
     }
-
-    
 }

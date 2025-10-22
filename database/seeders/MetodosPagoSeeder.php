@@ -6,18 +6,17 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class RolSeeder extends Seeder
+class MetodosPagoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('rols')->insert([
-            ["rol_name" => "Administrador"],
-            ["rol_name" => "Usuario"]
+        DB::table('metodos_pagos')->insert([
+            ["metodo_pago" => "Tarjeta de crédito"],
+            ["metodo_pago" => "Tarjeta de débito"],
+            ["metodo_pago" => "PSE"],
         ]);
     }
-
-    
 }

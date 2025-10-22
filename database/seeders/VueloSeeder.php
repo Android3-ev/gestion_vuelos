@@ -2,22 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Models\Vuelos;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class RolSeeder extends Seeder
+class VueloSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('rols')->insert([
-            ["rol_name" => "Administrador"],
-            ["rol_name" => "Usuario"]
-        ]);
+        Vuelos::factory()->count(10)->create();
     }
-
-    
 }

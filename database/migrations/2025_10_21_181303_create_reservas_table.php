@@ -19,8 +19,13 @@ return new class extends Migration
             $table->string("nombre_completo");
             $table->string("tipo_documento");
             $table->string("documento");
-            $table->string("correo");
+            $table->string("email");
             $table->string("celular");
+            $table->foreignId("metodo_id")->constrained('metodos_pagos')->cascadeOnDelete();
+            $table->double("monto");
+            $table->string("estado");
+            $table->string("codigo");
+            $table->string("cantidad_reserva");
             $table->timestamps();
         });
     }

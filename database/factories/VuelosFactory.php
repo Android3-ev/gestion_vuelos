@@ -17,18 +17,17 @@ class VuelosFactory extends Factory
      */
     public function definition(): array
     {
-        $start_time = $this->faker->dateTimeBetween(now(), "+2 month");
-        $end_time = clone ($start_time)->modify("+" . rand(1, 5) . "hours");
+        $start_time = $this->faker->dateTimeBetween(now(), "+1 week");
+        $end_time = clone ($start_time)->modify("+" . rand(1, 5) . " day");
         return [
             'avion_id' => Avion::inRandomOrder()->first()->id,
             'image' => '',
             'origen' => $this->faker->randomElement(["Riohacha", "Barranquilla", "Bogotá", "Valledupar"]),
-            'destino' => $this->faker->randomElement(["Cali", "Cartegena", "Pereira", "Medellin"]),
+            'destino' => $this->faker->randomElement(["Cali", "Cartagena", "Pereira", "Medellin"]),
             "fecha_salida" => $start_time,
             "fecha_llegada" => $end_time,
             "tipo_vuelo" => $this->faker->randomElement(["solo ida", "ida y vuelta"]),
             "precio" => $this->faker->randomFloat(3, 250, 490)
         ];
-        
     }
 }

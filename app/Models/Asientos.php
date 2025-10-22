@@ -15,4 +15,14 @@ class Asientos extends Model
         'asiento',
         'estado'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
+    public function reserva()
+    {
+        return $this->hasMany(Reserva::class);
+    }
 }

@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Validator;
 
 class AsientosController extends Controller
 {
+
+    public function index()
+    {
+        $asiento = Asientos::all();
+
+        return response()->json([
+            'data' => $asiento
+        ]);
+    }
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

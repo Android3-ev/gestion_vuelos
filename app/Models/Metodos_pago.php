@@ -14,4 +14,9 @@ class Metodos_pago extends Model
     protected $fillable = [
         'metodo_pago'
     ];
+
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+    ];
 }

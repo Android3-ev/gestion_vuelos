@@ -15,6 +15,11 @@ class Rol extends Model
         "rol_name"
     ];
 
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+    ];
+
     public function users()
     {
         return $this->hasMany(User::class, "rol_id");

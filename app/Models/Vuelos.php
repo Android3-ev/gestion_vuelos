@@ -22,9 +22,19 @@ class Vuelos extends Model
         'precio'
     ];
 
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+    ];
+
     public function avions()
     {
         return $this->belongsTo(Avion::class);
     }
 
+    public function reserva()
+    {
+        return $this->hasMany(Reserva::class, "vuelo_id");
+    }
+    
 }

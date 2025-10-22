@@ -22,7 +22,7 @@ class AuthController extends Controller
                 'fecha_nacimiento' => 'required|date',
                 'genero' => 'required|string',
                 'tipo_id' => 'required|exists:tipos_documentos,id',
-                'documento' => 'required|int',
+                'documento' => 'required|int|unique:users,documento',
                 'edad' => 'required|int',
                 'celular' => 'required|int|min:11',
                 'email' => 'required|email|unique:users,email',

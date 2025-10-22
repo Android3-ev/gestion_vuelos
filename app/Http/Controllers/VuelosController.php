@@ -8,33 +8,35 @@ use Illuminate\Support\Facades\Validator;
 
 class VuelosController extends Controller
 {
+    // METODO PARA LISTAR VUELOS
     public function index(Request $request)
     {
-        $vuelos = Vuelos::all();
 
         $query = Vuelos::query();
 
+        // FILTRO DE VUELOS POR SOLO IDA O IDA Y VUELTA
         if ($request->has("tipo_vuelo")) {
             $tipo = $request->tipo_vuelo;
             $query->where('tipo_vuelo', $tipo);
         }
-
+        // FILTRO DE VUELOS POR ORIGEN
         if ($request->has('origen')) {
             $query->where('origen', $request->origen);
         }
-
+        // FILTRO DE VUELOS POR DESTINO
         if ($request->has('destino')) {
             $query->where('destino', $request->destino);
         }
-
+        // OBTENEMOS LOS DATOS Y LOS MOSTRAMOS
         $datos = $query->get();
         return response()->json([
             "data" => $datos
         ]);
     }
-
+    // METODO PARA CREAR UN VUELO
     public function store(Request $request)
     {
+        // VALIDAMOS LOS VALORES ENVIADOS POR EL FOMULARIO
         $validator = Validator::make(
             $request->all(),
             [
@@ -48,11 +50,11 @@ class VuelosController extends Controller
                 'precio' => 'required|numeric'
             ]
         );
-
+        // CONTROLAMOS EL FLUJO EN CASO DE ERROR
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()]);
         }
-
+        // SI TODO MARCHA BIEN, CREAMOS EL VUELO
         $vuelos = Vuelos::create([
             'avion_id' => $request->avion_id,
             'image' => $request->image,
@@ -71,15 +73,16 @@ class VuelosController extends Controller
             ]
         );
     }
-
+    // METODO PARA EDITAR VUELOS
     public function update(Request $request, string $id)
     {
+        // BUCAMOS EL VUELO AL QUE SE VA A EDITAR
         $vuelo = Vuelos::find($id);
-
+        // VERIFICAMOS SI EXISTE
         if (!$vuelo) {
             return response()->json(['message' => "NO HAY VUELOS DISPONIBLES"]);
         }
-
+        // VALIDAMOS QUE TODO ESTE CORECTO EN EL FORMULARIO
         $validator = Validator::make(
             $request->all(),
             [
@@ -93,7 +96,7 @@ class VuelosController extends Controller
                 'precio' => 'nullable|numeric'
             ]
         );
-
+        // SE HACE EL RESPECTIVO REEMPLAZO DE LOS VALORES
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()]);
         }
@@ -129,7 +132,7 @@ class VuelosController extends Controller
         if ($request->has('precio')) {
             $vuelo->precio = $request->precio;
         }
-
+        // GUARDAMOS Y MOSTRAMOS
         $vuelo->save();
 
         return response()->json(
@@ -139,15 +142,16 @@ class VuelosController extends Controller
             ]
         );
     }
-
+    // METODO PARA ELIMINAR
     public function destroy(string $id)
     {
+        // BUCAMOS EL VUELO AL QUE SE VA A EDITAR
         $vuelo = Vuelos::find($id);
-
+        // VERIFICAMOS SI EXISTE
         if (!$vuelo) {
             return response()->json(['message' => "NO HAY VUELOS DISPONIBLES"]);
         }
-
+        // SI HAY UNA COINCIDENCIA LO ELIMINAMOS
         $vuelo->delete();
 
         return response()->json(['message' => 'VUELO ELIMINADO']);

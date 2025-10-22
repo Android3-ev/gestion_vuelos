@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     public function reservas()
     {
-        return $this->belongsTo(Reserva::class);
+        return $this->hasMany(Reserva::class, "user_id");
     }
 
     /**

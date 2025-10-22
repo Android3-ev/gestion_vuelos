@@ -27,8 +27,23 @@ class Reserva extends Model
         'cantidad_reserva'
     ];
 
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+    ];
+
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function vuelo()
+    {
+        return $this->belongsTo(Vuelos::class);
+    }
+
+    public function asiento()
+    {
+        return $this->belongsTo(Asientos::class);
     }
 }

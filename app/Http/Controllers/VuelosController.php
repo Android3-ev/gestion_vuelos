@@ -46,7 +46,7 @@ class VuelosController extends Controller
                 'destino' => 'required|string',
                 'fecha_salida' => 'required|date',
                 'fecha_llegada' => 'required|date|after:fecha_salida',
-                'tipo_vuelo' => 'required|string|in:"Solo ida","Ida y vuelta"',
+                'tipo_vuelo' => 'required|string|in:"solo ida","ida y vuelta"',
                 'precio' => 'required|numeric'
             ]
         );

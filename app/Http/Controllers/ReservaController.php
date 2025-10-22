@@ -4,14 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Reserva;
 use App\Models\User;
+use App\Models\Vuelos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ReservaController extends Controller
 {
+    // METODO PARA LISTAR LAS RESERVAS
     public function index()
     {
         $reserva = Reserva::all();
+
+        if ($reserva->isEmpty()) {
+            return response()->json(
+                [
+                    'message' => 'NO HAY RESERVAS DISPONIBLES'
+                ]
+            );
+        }
 
         return response()->json(
             [
@@ -21,22 +31,26 @@ class ReservaController extends Controller
         );
     }
 
+    // METODO PARA VER TODAS LA RESERVAS RELACIONADAS CON LOS USUARIOS
     public function reservaUser()
     {
+        // OBTENEMOS EL USUARIO, EL VUELO Y EL ASIENTO RELACIONADO
         $reserva = Reserva::with(['user', 'vuelo', 'asiento'])->get();
 
         return response()->json(['data' => $reserva]);
     }
 
-
+    // METODO PARA VER LAS RESERVAS DE UN USUARIO PARCIAL
     public function reservaParcial(string $id)
     {
+        // VERIFICAMOS QUE HAYA UN USUARIO
         $reservaUser = Reserva::find($id);
 
         if (!$reservaUser) {
             return response()->json(['message' => 'NO SE ENCONTRÓ UNA RESERVA']);
         }
 
+        // SI HAY UN USUARIO BUSCAMOS LAS RESERVAS DE ACUERDO A ELLO
         $reserva = Reserva::where('user_id', $id)
             ->with(['user', 'vuelo', 'asiento'])->get();
 
@@ -68,6 +82,12 @@ class ReservaController extends Controller
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
+        }
+
+        $vuelo = Vuelos::find($request->vuelo_id);
+
+        if ($vuelo->fecha_salida < now()) {
+            return response()->json(['message' => 'TU RESERVA YA CADUCÓ']);
         }
 
         $reserva = Reserva::create(

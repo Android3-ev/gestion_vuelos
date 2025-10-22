@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    // METODO PARA REGISTRAR USUARIOS
     public function register(Request $request)
     {
         $validator = Validator::make(
@@ -54,7 +55,7 @@ class AuthController extends Controller
             'data' => $user
         ]);
     }
-
+    // METODO PARA INICIAR SESSION
     public function login(Request $request)
     {
         $validator = Validator::make(
@@ -68,7 +69,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
-
+        // VERIFICAMOS SI LOS DATOS INGRESADOS COINCIDEN
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json(
                 [
@@ -76,9 +77,9 @@ class AuthController extends Controller
                 ]
             );
         }
-
+        // OBTENEMOS EL USUARIO AUTENTICADO
         $user = Auth::user();
-
+        // CREAMOS UN TOKEN PARA EL USUARIO
         $token = $user->createToken("auth:token")->plainTextToken;
 
         return response()->json(
@@ -89,10 +90,10 @@ class AuthController extends Controller
             ]
         );
     }
-
+    // METODO PARA CERRAR SESSION
     public function logout(Request $request)
     {
-
+        // ELIMINAMOS EL TOKEN DEL USUARIO ACTUAL
         $request->user()->currentAccessToken()->delete();
 
         return response()->json(

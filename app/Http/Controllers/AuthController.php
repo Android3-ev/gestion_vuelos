@@ -20,12 +20,12 @@ class AuthController extends Controller
                 'name' => 'required|string|min:3',
                 'primer_apellido' => 'required|string|min:3',
                 'segundo_apellido' => 'required|string|min:3',
-                'fecha_nacimiento' => 'required|date',
+                'fecha_nacimiento' => 'date',
                 'genero' => 'required|string',
                 'tipo_id' => 'required|exists:tipos_documentos,id',
                 'documento' => 'required|int|unique:users,documento',
-                'edad' => 'required|int',
-                'celular' => 'required|int|min:11',
+                'edad' => 'int',
+                'celular' => 'int|min:11',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:6'
             ]

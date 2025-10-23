@@ -45,11 +45,12 @@ class User extends Authenticatable
         'updated_at',
     ];
 
+    // RELACION DE USUARIOS CON ROLES
     public function rol()
     {
         return $this->belongsTo(Rol::class);
     }
-
+    // RELACION DE USUARIOS CON RESERVAS
     public function reservas()
     {
         return $this->hasMany(Reserva::class, "user_id");

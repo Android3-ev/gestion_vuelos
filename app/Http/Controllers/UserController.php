@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // METODO PARA LISTAR USUARIOS
     public function index()
     {
         $user = User::all();
+
+        if ($user->isEmpty()) {
+            return response()->json(['message' => 'NO HAY USUARIOS DISPONIBLES']);
+        }
 
         return response()->json(
             [
@@ -24,25 +26,14 @@ class UserController extends Controller
         );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(string $id) {}
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // METODO PARA EDITAR USUARIOS
     public function update(Request $request, string $id)
     {
 
@@ -130,9 +121,7 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // METODO PARA ELIMINAR USUARIOS
     public function destroy(string $id)
     {
         $user = User::find($id);

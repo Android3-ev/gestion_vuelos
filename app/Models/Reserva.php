@@ -32,16 +32,17 @@ class Reserva extends Model
         "updated_at",
     ];
 
+    // RELACION DE RESERVAS CON USUARIOS
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
+    // RELACION DE RESERVAS CON VUELOS
     public function vuelo()
     {
         return $this->belongsTo(Vuelos::class);
     }
-
+    // RELACION DE RESERVAS CON ASIENTOS
     public function asiento()
     {
         return $this->belongsTo(Asientos::class);

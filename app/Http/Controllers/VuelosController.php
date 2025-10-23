@@ -44,11 +44,12 @@ class VuelosController extends Controller
                 'image' => 'nullable',
                 'origen' => 'required|string',
                 'destino' => 'required|string',
-                'fecha_salida' => 'required|date|after_or_equals:today',
-                'fecha_llegada' => 'required|date|after_or_equals:fecha_salida',
+                'fecha_salida' => 'required|date|after_or_equal:today',
+                'fecha_llegada' => 'required|date|after_or_equal:fecha_salida',
                 'tipo_vuelo' => 'required|string|in:"solo ida","ida y vuelta"',
                 'precio' => 'required|numeric'
-            ]
+            ],
+
         );
         // CONTROLAMOS EL FLUJO EN CASO DE ERROR
         if ($validator->fails()) {

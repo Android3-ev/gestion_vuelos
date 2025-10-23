@@ -62,7 +62,7 @@ class ReservaController extends Controller
             'data' => $reserva
         ]);
     }
-
+    // METODO PARA CREAR RESERVAS
     public function store(Request $request)
     {
 
@@ -73,14 +73,26 @@ class ReservaController extends Controller
                 'asiento_id' => 'required|unique:reservas,asiento_id,|exists:asientos,id',
                 'nombre_completo' => 'required|string',
                 'tipo_documento' => 'required|exists:tipos_documentos,id',
-                'documento' => 'required|min:8|max:11',
+                'documento' => 'required|unique:users,documento|min:8|max:11',
                 'email' => "required|email|unique:users,email",
                 'celular' => 'required|string|min:10',
                 'metodo_id' => 'required|exists:metodos_pagos,id',
                 'cantidad_reserva' => 'required|numeric|min:1|max:5'
+            ],
+            // MENSAJES EN CASO DE ERROR EN EL FORMULARIO
+            [
+                'vuelo_id.exists' => 'NO HAY UN VUELO DISPONIBLE PARA TU DESTINO',
+                'asiento_id.unique' => 'ESTE ASIENTO YA ESTÁ RESERVADO',
+                'asiento_id.exists' => 'NO EXISTE ESTE ASIENTO',
+                'documento.unique' => 'ESTE NÚMERO DE DOCUMENTO YA EXISTE',
+                'documento.min' => 'DOCUMENTO INVALIDO',
+                'documento.max' => 'DOCUMENTO INVALIDO',
+                'email.unique' => 'ESTE EMAIL YA ESTÁ SIENDO UTILIZADO POR OTRO USUARIO',
+                'email.email' => 'EMAIL INVALIDO',
             ]
         );
 
+        // MOSTRAR LOS ERRORES
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
@@ -98,6 +110,7 @@ class ReservaController extends Controller
         $primer_apellido = $partes[2] ?? '';
         $segundo_apellido = $partes[3] ?? '';
 
+        // CREAMOS UN USUARIO EN CASO DE QUE NO ESTÉ AUTENTICADO
         $user = User::firstOrCreate([
             'rol_id' => 2,
             'name' => $primer_nombre . " " . $segundo_nombre,
@@ -111,8 +124,9 @@ class ReservaController extends Controller
             'password' => Hash::make('12345678')
         ]);
 
+        // GENERAMOS EL CODIGO PARA LA RESERVA
         $codigo = strtoupper(Str::random(8));
-
+        // CREAMOS LA RESERVA
         $reserva = Reserva::create(
             [
                 'user_id' => $user->id,
@@ -135,7 +149,7 @@ class ReservaController extends Controller
             'data' => $reserva
         ]);
     }
-
+    // METODO PARA BUSCAR UNA RESERVA
     public function show(string $id)
     {
         $reservaUser = Reserva::find($id);
@@ -151,7 +165,7 @@ class ReservaController extends Controller
         );
     }
 
-
+    // METODO PARA EDITAR LOS VUELOS
     public function updated(string $id, Request $request)
     {
         $reserva = Reserva::find($id);
@@ -178,6 +192,8 @@ class ReservaController extends Controller
             ]
         );
 
+        // SI EL USUARIO DECIDE EDITAR SOLO ALGUNOS CAMPOS EN ESPECIFICOS
+        // EL RESTO DE LOS CAMPOS CONSERVARÁN SU VALOR
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
@@ -229,7 +245,7 @@ class ReservaController extends Controller
         if ($request->has('cantidad_reserva')) {
             $reserva->cantidad_reserva = $request->cantidad_reserva;
         }
-
+        // GUARDAMOS LOS CAMBIOS
         $reserva->save();
 
         return response()->json([
@@ -237,10 +253,9 @@ class ReservaController extends Controller
             'data' => $reserva
         ]);
     }
-
+    // METODO PARA ELIMINAR RESERVAS
     public function destroy(string $id)
     {
-
         $reserva = Reserva::find($id);
 
         if (!$reserva) {

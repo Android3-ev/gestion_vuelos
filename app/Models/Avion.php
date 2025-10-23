@@ -22,7 +22,7 @@ class Avion extends Model
         "created_at",
         "updated_at",
     ];
-
+    // RELACION DE AVION CON VUELOS
     public function vuelos()
     {
         return $this->hasMany(Vuelos::class, "avion_id");

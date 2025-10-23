@@ -27,14 +27,14 @@ class Vuelos extends Model
         "updated_at",
     ];
 
+    // RELACION DE VUELOS CON AVIONES
     public function avions()
     {
         return $this->belongsTo(Avion::class);
     }
-
+    // RELACION DE VUELOS CON RESERVAS
     public function reserva()
     {
         return $this->hasMany(Reserva::class, "vuelo_id");
     }
-    
 }

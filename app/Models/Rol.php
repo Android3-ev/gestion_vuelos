@@ -19,7 +19,7 @@ class Rol extends Model
         "created_at",
         "updated_at",
     ];
-
+    // RELACION DE ROLES CON USUARIOS
     public function users()
     {
         return $this->hasMany(User::class, "rol_id");

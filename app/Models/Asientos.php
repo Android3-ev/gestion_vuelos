@@ -20,7 +20,7 @@ class Asientos extends Model
         'created_at',
         'updated_at',
     ];
-
+    // RELACION DE ASIENTOS CON RESERVAS
     public function reserva()
     {
         return $this->hasMany(Reserva::class);
